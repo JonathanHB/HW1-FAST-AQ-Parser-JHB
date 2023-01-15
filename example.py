@@ -1,3 +1,4 @@
+import tests.test_parsers
 from seqparser import (
         FastaParser,
         FastqParser,
@@ -8,6 +9,9 @@ def main():
     """
     The main function
     """
+
+    tests.test_parsers.test_FastaParser()
+
     # Create instance of FastaParser
     # Create instance of FastqParser
         

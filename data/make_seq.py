@@ -37,15 +37,24 @@ def iter_seq(n=100, l=100, is_fastq=False):
 
 def main():
     np.random.seed(SEED)
-    
+
+    # the contents of the fasta file in list form for unit testing of the fasta reader
+    fa_true = []
     with open("test.fa", "w+") as f:
         for h, s in iter_seq():
+            fa_true.append([h, s])
             f.write(f">{h}\n{s}\n")
 
+    # the contents of the fastq file in list form for unit testing of the fastq reader
+    fq_true = []
     with open("test.fq", "w+") as f:
         for h, s, q in iter_seq(is_fastq=True):
+            fq_true.append([h, s, q])
             f.write(f"@{h}\n{s}\n+\n{q}\n")
 
+    #print(fa_true)
+    #print(fq_true)
+    return [fa_true, fq_true]
 
 if __name__ == "__main__":
     main()
