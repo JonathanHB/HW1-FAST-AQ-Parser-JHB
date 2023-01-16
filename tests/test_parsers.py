@@ -48,14 +48,18 @@ def test_FastaParser():
 
     try:
         test_fastaparser_2 = FastaParser(path_to_install + '/data/test_empty.fa')
+        # this line is just to call test_fastparser_2's __iter__ method and throw an empty file error
         b = [i for i in test_fastaparser_2]
-        # this code is just to call test_fastparser_2's __iter__ method and throw an empty file error
-        print("Fasta parser unit test 2 failed; parser failed to recognize empty file.")
+        empty_passed = False
     except ValueError as e:
         if str(e) == f"File ({path_to_install}/data/test_empty.fa) had 0 lines.":
-            print("Fasta parser unit test 2 passed; parser recognized empty file.")
+            empty_passed = True
         else:
-            print("Fasta parser unit test 2 failed; parser failed to throw correct exception for empty file.")
+            empty_passed = False
+
+    assert empty_passed, "Fasta parser unit test 2 failed; parser failed to throw correct exception for empty file."
+
+    print("Fasta parser unit test 2 passed; parser recognized empty file.")
 
 
 def test_FastqParser():
@@ -83,14 +87,18 @@ def test_FastqParser():
 
     try:
         test_fastqparser_2 = FastqParser(path_to_install + '/data/test_empty.fq')
+        # this line is just to call test_fastparser_2's __iter__ method and throw an empty file error
         b = [i for i in test_fastqparser_2]
-        # this code is just to call test_fastparser_2's __iter__ method and throw an empty file error
-        print("Fastq parser unit test 2 failed; parser failed to recognize empty file.")
+        empty_passed = False
     except ValueError as e:
         if str(e) == f"File ({path_to_install}/data/test_empty.fq) had 0 lines.":
-            print("Fastq parser unit test 2 passed; parser recognized empty file.")
+            empty_passed = True
         else:
-            print("Fastq parser unit test 2 failed; parser failed to throw correct exception for empty file.")
+            empty_passed = False
+
+    assert empty_passed, "Fastq parser unit test 2 failed; parser failed to throw correct exception for empty file."
+
+    print("Fastq parser unit test 2 passed; parser recognized empty file.")
 
 
 test_FastaParser()

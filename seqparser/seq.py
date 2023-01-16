@@ -31,6 +31,7 @@ def transcribe(seq: str, reverse: bool = False) -> str:
     # will return the result of the "".join(map()) statement
     for idx, nuc in enumerate(seq):
         if nuc not in ALLOWED_NUC:
+            #I'm not sure what this "err" variable was used for
             err = f"Nucleotide {nuc} at position {idx+1} for {seq} was not an allowed DNA nucleotide."
             if reverse:
                 err = err[:-1]  # remove period
