@@ -20,11 +20,11 @@ def test_freebie_transcribe_2():
     """
     assert 1 != 2
 
-def exception_assertion(test_input, expected_exception):
+def exception_assertion(test_input, function, expected_exception):
 
     empty_handled = True
     try:
-        seqparser.transcribe(test_input)
+        function(test_input)
         empty_handled = False
     except ValueError as e:
         if str(e) != expected_exception:
@@ -42,38 +42,25 @@ def test_transcribe():
     test_output = "UGCCUGGGGCCUAAUUGGUGGUACUU"
 
     #test normal operation
-    assert seqparser.transcribe(test_input) == test_output, "Transcription unit test 1 failed; did not correctly transcribe test sequence"
+    assert seqparser.transcribe(test_input) == test_output, \
+        "Transcription unit test 1 failed; did not correctly transcribe test sequence"
     print("Transcription unit test 1 passed: normal sequence was accurately transcribed.")
 
-    #test empty string detection
-    test_empty = ""
-
-    empty_handled = True
-    try:
-        seqparser.transcribe(test_empty)
-        empty_handled = False
-    except ValueError as e:
-        if str(e) != "Seq can't be an empty string.":
-            empty_handled = False
-
-    assert empty_handled, "Transcription unit test 2 failed, did not detect and report empty input"
+    assert exception_assertion("", seqparser.transcribe, "Seq can't be an empty string."), \
+        "Transcription unit test 2 failed, did not detect and report empty input"
     print("Transcription unit test 2 passed: empty sequence was detected and reported.")
 
-
-    #test non-string handling
-    test_nonstring = 189567482
-
-    nonstr_handled = True
-    try:
-        seqparser.transcribe(test_nonstring)
-        nonstr_handled = False
-    except ValueError as e:
-        if str(e) != "Seq must be of type string.":
-            nonstr_handled = False
-
-    assert nonstr_handled, "Transcription unit test 3 failed, did not detect and report non-string input"
+    assert exception_assertion(189567482, seqparser.transcribe, "Seq must be of type string."), \
+        "Transcription unit test 3 failed, did not detect and report non-string input"
     print("Transcription unit test 3 passed: non-string sequence was detected and reported.")
 
+    non_nucleotide = "B"
+    non_nucleotide_index = 7
+    wrong_test_input = test_input[0:non_nucleotide_index] + non_nucleotide + test_input[non_nucleotide_index+1:]
+    assert exception_assertion(wrong_test_input, seqparser.transcribe,
+                               f"Nucleotide {non_nucleotide} at position {non_nucleotide_index+1} for {wrong_test_input} was not an allowed DNA nucleotide."), \
+        "Transcription unit test 4 failed, did not detect and report non-nucleotide in sequence"
+    print("Transcription unit test 4 passed: non-nucleotide was detected and reported.")
 
 test_transcribe()
 
