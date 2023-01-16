@@ -109,6 +109,7 @@ class Parser:
 
         #copied from reference
         nseq = 0
+
         with open(self.filename, "r") as f_obj:
 
             rec = self.get_record(

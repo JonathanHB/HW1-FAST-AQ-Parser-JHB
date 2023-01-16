@@ -23,7 +23,7 @@ def test_freebie_parser_2():
     """
     assert 1 != 2
 
-        
+
 def test_FastaParser():
     """
     Write your unit test for your FastaParser
@@ -32,15 +32,30 @@ def test_FastaParser():
     reads in the example Fasta File.
     """
 
-    test_fa_truth = make_seq.main()[0]
-    test_fastaparser = FastaParser('/Users/jonathanborowsky/PycharmProjects/HW1-FAST-AQ-Parser-JHB/data/test.fa')
+    #need to set this dynamically
+    path_to_install = '/Users/jonathanborowsky/PycharmProjects/HW1-FAST-AQ-Parser-JHB'
 
-    for idx, ri in enumerate(test_fastaparser):
+    test_fa_truth = make_seq.main()[0]
+    test_fastaparser_1 = FastaParser(path_to_install + '/data/test.fa')
+
+    for idx, ri in enumerate(test_fastaparser_1):
 
         assert list(ri) == test_fa_truth[idx], f"Fasta parser unit test failed: parsed record {idx} of fasta file ( {list(ri)} ) does not match true record {test_fa_truth[idx]}."
 
-    print("Fasta parser unit test passed; parser output matched true file contents.")
-    return True
+    print("Fasta parser unit test 1 passed; parser output matched true file contents.")
+
+    #I can't get assertRaises() to work, so I'm using a try/except statement to check empty file handling
+
+    try:
+        test_fastaparser_2 = FastaParser(path_to_install + '/data/test_empty.fa')
+        b = [i for i in test_fastaparser_2]
+        # this code is just to call test_fastparser_2's __iter__ method and throw an empty file error
+        print("Fasta parser unit test 2 failed; parser failed to recognize empty file.")
+    except ValueError as e:
+        if str(e) == f"File ({path_to_install}/data/test_empty.fa) had 0 lines.":
+            print("Fasta parser unit test 2 passed; parser recognized empty file.")
+        else:
+            print("Fasta parser unit test 2 failed; parser failed to throw correct exception for empty file.")
 
 
 def test_FastqParser():
@@ -51,8 +66,10 @@ def test_FastqParser():
     reads in the example Fastq File.
     """
 
+    path_to_install = '/Users/jonathanborowsky/PycharmProjects/HW1-FAST-AQ-Parser-JHB'
+
     test_fq_truth = make_seq.main()[1]
-    test_fastqparser = FastqParser('/Users/jonathanborowsky/PycharmProjects/HW1-FAST-AQ-Parser-JHB/data/test.fq')
+    test_fastqparser = FastqParser(path_to_install + '/data/test.fq')
 
     #this is potentially more informative than trying to compare lists of lists directly because it tells the user
     #where in the fastq file the mismatch occurs
@@ -60,19 +77,21 @@ def test_FastqParser():
 
         assert list(ri) == test_fq_truth[idx], f"Fastq parser unit test failed: parsed record {idx} of fastq file ( {list(ri)} ) does not match true record {test_fq_truth[idx]}."
 
-    print("Fastq parser unit test passed; parser output matched true file contents.")
-    return True
+    print("Fastq parser unit test 1 passed; parser output matched true file contents.")
+
+    #I can't get assertRaises() to work, so I'm using a try/except statement to check empty file handling
+
+    try:
+        test_fastqparser_2 = FastqParser(path_to_install + '/data/test_empty.fq')
+        b = [i for i in test_fastqparser_2]
+        # this code is just to call test_fastparser_2's __iter__ method and throw an empty file error
+        print("Fastq parser unit test 2 failed; parser failed to recognize empty file.")
+    except ValueError as e:
+        if str(e) == f"File ({path_to_install}/data/test_empty.fq) had 0 lines.":
+            print("Fastq parser unit test 2 passed; parser recognized empty file.")
+        else:
+            print("Fastq parser unit test 2 failed; parser failed to throw correct exception for empty file.")
 
 
-test_FastaParser() #works for the standard case
+test_FastaParser()
 test_FastqParser()
-
-# if ri[0] != test_fa_truth[idx][0]:
-#     print(f"Fasta parser unit test failed; label entry {idx} of test file ({ri[0]}) does not "
-#           f"yield correct value of {test_fa_truth[idx][0]}.")
-#     return False
-#
-# if ri[1] != test_fa_truth[idx][1]:
-#     print(f"Fasta parser unit test failed; data entry {idx} of test file ({ri[1]}) does not "
-#           f"yield correct value of {test_fa_truth[idx][1]}.")
-#     return False
