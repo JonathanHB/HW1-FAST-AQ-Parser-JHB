@@ -9,6 +9,7 @@ readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = ["License :: OSI Approved :: MIT License"]
 dynamic = ["version", "description"]
+dependencies = ["pytest", "numpy"]
 
 [project.urls]
 Home = "https://github.com/JonathanHB/HW1-FAST-AQ-Parser-JHB"
