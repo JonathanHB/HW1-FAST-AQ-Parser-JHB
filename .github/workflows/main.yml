@@ -32,20 +32,3 @@ jobs:
       
       - name: Run unit tests
         run: python -m pytest -v test/*
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-
-    Terms
-    Privacy
-    Security
-    Status
-    Docs
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
-minimal-viable-package/main.yml at master · bmi203-2023/minimal-viable-package
