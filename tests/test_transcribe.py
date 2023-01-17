@@ -1,8 +1,8 @@
 # write tests for transcribes
 import seqparser
 from seqparser import (
-        transcribe,
-        reverse_transcribe)
+     transcribe,
+     reverse_transcribe)
 
 
 def test_freebie_transcribe_1():
@@ -35,7 +35,7 @@ def exception_assertion(test_input, func, expected_exception):
 
 #test a function's handling of empty strings, non-strings, and non-biological nucleotides
 #use of this avoids duplicated assertions for forward and reverse transcription
-def test_transcription_rt_error_handling(func, forward, test_input):
+def test_transcription_rt_error_handling(tr_func, forward, test_input):
 
     funcnameroot = "Transcription unit test "
 
@@ -45,12 +45,12 @@ def test_transcription_rt_error_handling(func, forward, test_input):
         funcname = "Reverse t" + funcnameroot[1:]
 
     #test empty string handling
-    assert exception_assertion("", func, "Seq can't be an empty string."), \
+    assert exception_assertion("", tr_func, "Seq can't be an empty string."), \
         funcname + "2 failed, did not detect and report empty input"
     print(funcname + "2 passed: empty sequence was detected and reported.")
 
     #test non-string handling
-    assert exception_assertion(189567482, func, "Seq must be of type string."), \
+    assert exception_assertion(189567482, tr_func, "Seq must be of type string."), \
         funcname + "3 failed, did not detect and report non-string input"
     print(funcname + "3 passed: non-string sequence was detected and reported.")
 
@@ -68,7 +68,7 @@ def test_transcription_rt_error_handling(func, forward, test_input):
         err_nuc_index = len(wrong_test_input) - non_nucleotide_index
         wrong_test_input_2 = wrong_test_input[::-1]
 
-    assert exception_assertion(wrong_test_input, func,
+    assert exception_assertion(wrong_test_input, tr_func,
                                f"Nucleotide {non_nucleotide} at position {err_nuc_index} for {wrong_test_input_2} was not an allowed DNA nucleotide."), \
         funcname + "4 failed, did not detect and report non-nucleotide in sequence"
     print(funcname + "4 passed: non-nucleotide in sequence was detected and reported.")
@@ -83,11 +83,11 @@ def test_transcribe():
     test_output = "UGCCUGGGGCCUAAUUGGUGGUACUU"
 
     #test normal operation
-    assert seqparser.transcribe(test_input) == test_output, \
+    assert transcribe(test_input) == test_output, \
         "Transcription unit test 1 failed; did not correctly transcribe test sequence"
     print("Transcription unit test 1 passed: normal sequence was accurately transcribed.")
 
-    test_transcription_rt_error_handling(seqparser.transcribe, True, test_input)
+    test_transcription_rt_error_handling(transcribe, True, test_input)
 
 
 def test_reverse_transcribe():
@@ -98,14 +98,13 @@ def test_reverse_transcribe():
 
     test_input  = "ACGGACCCCGGATTAACCACCATGAA"
     test_output = "UUCAUGGUGGUUAAUCCGGGGUCCGU"
-                 #"UGCCUGGGGCCUAAUUGGUGGUACUU"
 
     # test normal operation
-    assert seqparser.reverse_transcribe(test_input) == test_output, \
+    assert reverse_transcribe(test_input) == test_output, \
         "Reverse transcription unit test 1 failed; did not correctly reverse-transcribe test sequence"
     print("Reverse transcription unit test 1 passed: normal sequence was accurately reverse-transcribed.")
 
-    test_transcription_rt_error_handling(seqparser.reverse_transcribe, False, test_input)
+    test_transcription_rt_error_handling(reverse_transcribe, False, test_input)
 
 test_transcribe()
 test_reverse_transcribe()
