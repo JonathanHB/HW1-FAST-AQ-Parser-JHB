@@ -8,9 +8,15 @@
 
 name: Upload Python Package
 
+#run workflow when something is pushed to or pulled from the main branch
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  #release:
+  #  types: [published]
 
 permissions:
   contents: read
