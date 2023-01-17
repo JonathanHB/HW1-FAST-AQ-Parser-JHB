@@ -33,10 +33,10 @@ def test_FastaParser():
     """
 
     #need to set this dynamically
-    path_to_install = '/Users/jonathanborowsky/PycharmProjects/HW1-FAST-AQ-Parser-JHB'
+    path_to_install = "" #'/Users/jonathanborowsky/PycharmProjects/HW1-FAST-AQ-Parser-JHB'
 
     test_fa_truth = make_seq.main()[0]
-    test_fastaparser_1 = FastaParser(path_to_install + '/data/test.fa')
+    test_fastaparser_1 = FastaParser(path_to_install + 'data/test.fa')
 
     for idx, ri in enumerate(test_fastaparser_1):
 
@@ -47,12 +47,12 @@ def test_FastaParser():
     #I can't get assertRaises() to work, so I'm using a try/except statement to check empty file handling
 
     try:
-        test_fastaparser_2 = FastaParser(path_to_install + '/data/test_empty.fa')
+        test_fastaparser_2 = FastaParser(path_to_install + 'data/test_empty.fa')
         # this line is just to call test_fastparser_2's __iter__ method and throw an empty file error
         b = [i for i in test_fastaparser_2]
         empty_passed = False
     except ValueError as e:
-        if str(e) == f"File ({path_to_install}/data/test_empty.fa) had 0 lines.":
+        if str(e) == f"File ({path_to_install}data/test_empty.fa) had 0 lines.":
             empty_passed = True
         else:
             empty_passed = False
@@ -70,10 +70,10 @@ def test_FastqParser():
     reads in the example Fastq File.
     """
 
-    path_to_install = '/Users/jonathanborowsky/PycharmProjects/HW1-FAST-AQ-Parser-JHB'
+    path_to_install = "" #'/Users/jonathanborowsky/PycharmProjects/HW1-FAST-AQ-Parser-JHB'
 
     test_fq_truth = make_seq.main()[1]
-    test_fastqparser = FastqParser(path_to_install + '/data/test.fq')
+    test_fastqparser = FastqParser(path_to_install + 'data/test.fq')
 
     #this is potentially more informative than trying to compare lists of lists directly because it tells the user
     #where in the fastq file the mismatch occurs
@@ -86,12 +86,12 @@ def test_FastqParser():
     #I can't get assertRaises() to work, so I'm using a try/except statement to check empty file handling
 
     try:
-        test_fastqparser_2 = FastqParser(path_to_install + '/data/test_empty.fq')
+        test_fastqparser_2 = FastqParser(path_to_install + 'data/test_empty.fq')
         # this line is just to call test_fastparser_2's __iter__ method and throw an empty file error
         b = [i for i in test_fastqparser_2]
         empty_passed = False
     except ValueError as e:
-        if str(e) == f"File ({path_to_install}/data/test_empty.fq) had 0 lines.":
+        if str(e) == f"File ({path_to_install}data/test_empty.fq) had 0 lines.":
             empty_passed = True
         else:
             empty_passed = False

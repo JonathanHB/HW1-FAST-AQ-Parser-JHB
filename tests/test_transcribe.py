@@ -82,8 +82,8 @@ def test_transcribe():
 
     #test normal operation
     assert transcribe(test_input) == test_output, \
-        "Transcription unit test 1 failed; did not correctly transcribe test sequence"
-    print("Transcription unit test 1 passed: normal sequence was accurately transcribed.")
+        "\n    Transcription unit test part 1 failed; did not correctly transcribe test sequence"
+    print("\n    Transcription unit test part 1 passed: normal sequence was accurately transcribed.")
 
     transcription_rt_error_handling(transcribe, True, test_input)
 
@@ -99,8 +99,8 @@ def test_reverse_transcribe():
 
     # test normal operation
     assert reverse_transcribe(test_input) == test_output, \
-        "Reverse transcription unit test 1 failed; did not correctly reverse-transcribe test sequence"
-    print("Reverse transcription unit test 1 passed: normal sequence was accurately reverse-transcribed.")
+        "\n    Reverse transcription unit test part 1 failed; did not correctly reverse-transcribe test sequence"
+    print("\n    Reverse transcription unit test part 1 passed: normal sequence was accurately reverse-transcribed.")
 
     transcription_rt_error_handling(reverse_transcribe, False, test_input)
 
